@@ -46,14 +46,6 @@ Unsupervised learning (K-Means) groups similar people based on:
 
 ---
 
-## 🔍 Run Locally
-
-```bash
-git clone https://github.com/yourusername/health-cluster-dashboard.git
-cd health-cluster-dashboard
-pip install -r requirements.txt
-streamlit run app.py```
-
 
 ## 🌐 Live Demo
 
@@ -66,3 +58,16 @@ streamlit run app.py```
 Made with ❤️ by [Revati Keskar]  
 📧 keskarrevati@gmail.com 
 📱 [LinkedIn](https://www.linkedin.com/in/revatikeskar/) | [GitHub](https://github.com/RevatiKeskar)
+
+---
+
+## 🔍 Run Locally
+
+```bash
+git clone https://github.com/yourusername/health-cluster-dashboard.git
+cd health-cluster-dashboard
+pip install -r requirements.txt
+streamlit run app.py```
+
+
+
