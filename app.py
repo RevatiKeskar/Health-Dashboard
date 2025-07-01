@@ -15,21 +15,36 @@ data = load_data()
 st.subheader("Data Preview")
 st.dataframe(data.head())
 
+
+# Mapping of cluster IDs to names
+cluster_names = {
+    0: "Elderly Health-Conscious",
+    1: "Unhealthy Lifestyle Group",
+    2: "Obese but Low-Stress",
+    3: "Young Fit Smokers"
+}
+
+# Add new column to the DataFrame
+data["Cluster_Label"] = data["Cluster"].map(cluster_names)
+
 #Sidebar for cluster selection
 st.sidebar.header("Filter options")
 clusters = sorted(data['Cluster'].unique())
-selected_cluster = st.sidebar.selectbox("Select Cluster", clusters)
+selected_label = st.selectbox("Select Cluster Group", data["Cluster_Label"].unique())
+
+# Filter data using label
+cluster_data = data[data["Cluster_Label"] == selected_label]
 
 
 #Filetered data
-cluster_data = data[data['Cluster'] == selected_cluster]
+cluster_data = data[data['Cluster'] == selected_label]
 
 #Show Cluster Size
 st.sidebar.markdown(f"**Cluster Size :** {cluster_data.shape[0]} individuals ")
 
 
 #Show summary stats
-st.subheader(f"Summary statistics for cluster {selected_cluster}")
+st.subheader(f"Cluster: {selected_label}")
 st.write(cluster_data.describe())
 
 #Numerical columns to include
@@ -53,8 +68,10 @@ fig, ax = plt.subplots(figsize=(7, 7), subplot_kw=dict(polar=True))
 for i, row in cluster_avg_norm.iterrows():
     values = row.tolist()
     values += values[:1]
-    ax.plot(angles, values, label=f'Cluster {i}')
+    label = cluster_names[i]
+    ax.plot(angles, values, label=f'{label}')
     ax.fill(angles, values, alpha=0.1)
+    
 
 ax.set_theta_offset(np.pi / 2)
 ax.set_theta_direction(-1)
